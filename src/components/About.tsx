@@ -11,13 +11,14 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-5 text-[var(--muted)] leading-relaxed">
             <p>
-              I&apos;m a software engineer who cares deeply about the intersection of
-              craft, creativity, and code. I love building products that feel
-              intuitive and leave people a little delighted.
+             I&apos;m a software engineer with 6 years of experience who found myself increasingly drawn to the question of not just how products work, but how they feel. 
+             That curiosity led me to pursue a Master&apos;s in Human-Computer Interaction, where I&apos;ve been deepening my understanding of the space where technology and human behavior meet.
+            Today, I work at the intersection of engineering and design: I bring technical rigor to UX/UI challenges,
+             and a designer&apos;s eye to the code I write. I care about building things that are thoughtful, accessible, and genuinely useful, not just functional.
             </p>
             <p>
-              When I&apos;m not building, you can find me sketching ideas, exploring
-              new tools, or getting lost in a good book.
+              When I&apos;m not building, you can find me at the beach, hanging with my two black cats and dachsund,
+              or getting lost in a good book.
             </p>
           </div>
           <div className="space-y-4">
@@ -26,6 +27,9 @@ export default function About() {
             </h3>
             <ul className="flex flex-wrap gap-2">
               {[
+                "Java",
+                "C++",
+                "Vue.js",
                 "TypeScript",
                 "React",
                 "Next.js",
