@@ -1,4 +1,8 @@
-import Image, { type StaticImageData } from 'next/image'
+import { type StaticImageData } from 'next/image'
+import ProjectCarousel from './ProjectCarousel'
+import accessiscanShot from '../../public/accessiscan.png'
+import wavewiseShot1 from '../../public/wavewise1.png'
+import wavewiseShot2 from '../../public/wavewise2.png'
 
 type Project = {
   title: string
@@ -7,8 +11,8 @@ type Project = {
   tags: string[]
   // Live site; the "Live ↗" link only shows once this is set.
   href?: string
-  // Real screenshot; falls back to the striped placeholder until one is added.
-  image?: StaticImageData
+  // Real screenshots; falls back to the striped placeholder until one is added.
+  images?: StaticImageData[]
 }
 
 const projects: Project[] = [
@@ -18,6 +22,8 @@ const projects: Project[] = [
     description:
       'Audits any URL against WCAG 2.0/2.1 AA and returns a compliance score with categorized violations. Containerized and deployed on Render.',
     tags: ['Next.js', 'TypeScript', 'Playwright', 'axe-core'],
+    href: 'https://accessibility-audit-tcy0.onrender.com/',
+    images: [accessiscanShot],
   },
   {
     title: 'WaveWise',
@@ -25,6 +31,7 @@ const projects: Project[] = [
     description:
       'Real-time, location-based beach conditions and safety info. Began as a Drexel HCI course assignment and grew into a fully coded prototype.',
     tags: ['JavaScript', 'Leaflet.js', 'OpenAI API'],
+    images: [wavewiseShot1, wavewiseShot2],
   },
 ]
 
@@ -53,13 +60,8 @@ export default function Projects() {
             key={project.title}
             className={`${card} border-sand-200 bg-sand-50 transition-colors duration-150 ease-(--ease-standard) hover:border-sea-300`}
           >
-            {project.image ? (
-              <Image
-                src={project.image}
-                alt={`${project.title} screenshot`}
-                sizes="(min-width: 768px) 380px, 80vw"
-                className="mb-5 h-[236px] w-full rounded-[10px] object-cover object-top"
-              />
+            {project.images ? (
+              <ProjectCarousel images={project.images} alt={project.title} />
             ) : (
               <div
                 aria-hidden="true"
