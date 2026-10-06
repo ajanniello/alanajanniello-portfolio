@@ -1,13 +1,130 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/* Design tokens from design_handoff_portfolio_horizon/tokens/styles.css.
+   Earthy beach palette: sand/tan neutrals, sea-glass blues, a clay sunset accent. */
 :root {
-  --background: #fdf8f4;
-  --foreground: #2c1810;
-  --accent: #c4704f;
-  --accent-light: #e8a98a;
-  --muted: #8a6255;
-  --surface: #f5ede6;
-  --border: #e0ccc3;
+  /* Sand: tan neutrals */
+  --sand-50: #fbf8f2;
+  --sand-100: #f4ece0;
+  --sand-200: #e9dcc8;
+  --sand-300: #d9c4a5;
+  --sand-400: #c4a57e;
+  --sand-500: #a8865e;
+  /* Driftwood: warm browns for text */
+  --driftwood-500: #8a7360;
+  --driftwood-600: #76604c;
+  --driftwood-800: #4a3a2c;
+  --driftwood-900: #2e2419;
+  /* Sea: light blues */
+  --sea-50: #eef5f8;
+  --sea-100: #ddebf1;
+  --sea-200: #bcd8e4;
+  --sea-300: #94c0d3;
+  --sea-500: #5f97b1;
+  --sea-700: #3a6d85;
+  --sea-800: #2d5769;
+  --sea-900: #1f4252;
+  /* Clay: sunset accent (original site accent) */
+  --clay-300: #e8a98a;
+  --clay-500: #c4704f;
+  --clay-700: #9a5236;
+  --white: #ffffff;
+
+  /* Semantic */
+  --bg: var(--sand-50);
+  --surface: var(--sand-100);
+  --surface-raised: var(--sand-50);
+  --surface-sea: var(--sea-50);
+  --border: var(--sand-200);
+  --border-strong: var(--sand-300);
+  --fg: var(--driftwood-900);
+  --fg-muted: var(--driftwood-600);
+  --fg-subtle: var(--driftwood-500);
+  --accent: var(--sea-700);
+  --accent-hover: var(--driftwood-900);
+  --accent-soft: var(--sea-200);
+  --accent-tint: var(--sea-100);
+  --accent-warm: var(--clay-500);
+  --on-accent: var(--white);
+  --focus-ring: var(--sea-300);
+  --selection: var(--sea-200);
+
+  /* Legacy aliases */
+  --background: var(--bg);
+  --foreground: var(--fg);
+  --accent-light: var(--accent-soft);
+  --muted: var(--fg-muted);
+
+  /* Typography (Geist is loaded by next/font in layout.tsx) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-7xl: 72px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --leading-tight: 1.25;
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+  --type-display-size: var(--text-7xl);
+  --type-display-size-mobile: var(--text-5xl);
+  --type-h2-size: var(--text-4xl);
+  --type-h3-size: var(--text-lg);
+  --type-lead-size: var(--text-lg);
+  --type-body-size: var(--text-base);
+  --type-small-size: var(--text-sm);
+  --type-eyebrow-size: var(--text-sm);
+
+  /* Spacing (4px base) */
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-20: 80px;
+  --space-24: 96px;
+  /* Layout */
+  --container-max: 896px;
+  --gutter: var(--space-6);
+  --section-y: var(--space-24);
+  --nav-height: 61px;
+  /* Radii */
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+  --radius-card: var(--radius-2xl);
+  --radius-photo: var(--radius-2xl);
+  --radius-pill: var(--radius-full);
+  /* Borders */
+  --border-width: 1px;
+  /* Elevation: the site is flat; borders do the work */
+  --shadow-none: none;
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --transition-colors:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+  /* Glass nav */
+  --nav-blur: 8px;
+  --nav-bg-alpha: 0.9;
 }
 
 @theme inline {
@@ -18,15 +135,76 @@
   --color-muted: var(--muted);
   --color-surface: var(--surface);
   --color-border: var(--border);
+  --color-sand-50: var(--sand-50);
+  --color-sand-100: var(--sand-100);
+  --color-sand-200: var(--sand-200);
+  --color-sand-300: var(--sand-300);
+  --color-sand-400: var(--sand-400);
+  --color-sand-500: var(--sand-500);
+  --color-driftwood-500: var(--driftwood-500);
+  --color-driftwood-600: var(--driftwood-600);
+  --color-driftwood-800: var(--driftwood-800);
+  --color-driftwood-900: var(--driftwood-900);
+  --color-sea-50: var(--sea-50);
+  --color-sea-100: var(--sea-100);
+  --color-sea-200: var(--sea-200);
+  --color-sea-300: var(--sea-300);
+  --color-sea-500: var(--sea-500);
+  --color-sea-700: var(--sea-700);
+  --color-sea-800: var(--sea-800);
+  --color-sea-900: var(--sea-900);
+  --color-clay-300: var(--clay-300);
+  --color-clay-500: var(--clay-500);
+  --color-clay-700: var(--clay-700);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+/* Eyebrow / label: Geist Mono, 12px, 500, 0.14em, uppercase */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--selection);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    transition:
+      color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard);
+  }
+
+  a:hover {
+    color: var(--accent-hover);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
 }
