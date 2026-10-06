@@ -3,18 +3,45 @@ import alanaPhoto from '../../public/alana.jpg'
 import catsPhoto from '../../public/cats.jpeg'
 import dogPhoto from '../../public/dog.jpeg'
 
-const skills = [
-  'Java',
-  'C++',
-  'Vue.js',
-  'TypeScript',
-  'React',
-  'Next.js',
-  'Node.js',
-  'Python',
-  'Tailwind CSS',
-  'PostgreSQL',
-  'Git',
+// From the resume, grouped so the list stays scannable.
+const skillGroups = [
+  {
+    label: 'Engineering',
+    skills: [
+      'Java',
+      'JavaScript',
+      'TypeScript',
+      'SQL',
+      'HTML/CSS',
+      'C/C++',
+      'Vue.js',
+      'React',
+      'Angular',
+      'Next.js',
+      'Spring Boot',
+      'Node.js',
+      'Electron',
+      'Tailwind CSS',
+    ],
+  },
+  {
+    label: 'Design & research',
+    skills: ['Figma', 'Axure', 'Usability testing', 'Personas', 'Wireframes'],
+  },
+  {
+    label: 'Tools',
+    skills: [
+      'GitHub',
+      'Bitbucket',
+      'Jenkins',
+      'Maven',
+      'Postman',
+      'Jira',
+      'Playwright',
+      'Claude Code',
+      'Codex',
+    ],
+  },
 ]
 
 export default function About() {
@@ -30,25 +57,35 @@ export default function About() {
             Engineer by training. Designer by curiosity.
           </h2>
           <p className="mb-4 text-[17px] leading-[1.7] text-driftwood-600">
-            Six years of software engineering left me drawn to not just how
-            products work, but how they feel — so I&apos;m pursuing a
-            Master&apos;s in Human-Computer Interaction.
+            Six years of full-stack engineering left me drawn to not just how
+            products work, but how they feel. Today I design and build
+            user-centered tools at L3Harris, and I&apos;m pursuing a
+            Master&apos;s in Human-Computer Interaction at Drexel University.
           </p>
           <p className="mb-7 text-[17px] leading-[1.7] text-driftwood-600">
             When I&apos;m not building, you can find me at the beach, hanging
             with my two black cats and dachshund, or getting lost in a good
             book.
           </p>
-          <ul className="flex flex-wrap gap-1.5" aria-label="Skills">
-            {skills.map((skill) => (
-              <li
-                key={skill}
-                className="rounded-full border border-sand-300 px-2.5 py-[3px] text-xs text-driftwood-600"
-              >
-                {skill}
-              </li>
+          <div className="space-y-4">
+            {skillGroups.map((group) => (
+              <div key={group.label}>
+                <h3 className="eyebrow mb-2 text-driftwood-500">
+                  {group.label}
+                </h3>
+                <ul className="flex flex-wrap gap-1.5">
+                  {group.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="rounded-full border border-sand-300 px-2.5 py-[3px] text-xs text-driftwood-600"
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
         {/* Collage: the two small photos are "cut out" over the portrait by a sand-100 border. */}

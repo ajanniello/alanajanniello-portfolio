@@ -2,32 +2,29 @@ import Image, { type StaticImageData } from 'next/image'
 
 type Project = {
   title: string
+  kind: string
   description: string
   tags: string[]
-  href: string
+  // Live site; the "Live ↗" link only shows once this is set.
+  href?: string
   // Real screenshot; falls back to the striped placeholder until one is added.
   image?: StaticImageData
 }
 
-// Placeholder copy: swap in real projects and screenshots.
 const projects: Project[] = [
   {
-    title: 'Project One',
-    description: "What this project does and why it's interesting.",
-    tags: ['Next.js', 'TypeScript'],
-    href: '#',
+    title: 'AccessiScan',
+    kind: 'Automated accessibility auditor',
+    description:
+      'Audits any URL against WCAG 2.0/2.1 AA and returns a compliance score with categorized violations. Containerized and deployed on Render.',
+    tags: ['Next.js', 'TypeScript', 'Playwright', 'axe-core'],
   },
   {
-    title: 'Project Two',
-    description: 'What problem does it solve? Who is it for?',
-    tags: ['Python', 'FastAPI'],
-    href: '#',
-  },
-  {
-    title: 'Project Three',
-    description: 'The impact, the tech, and what you learned.',
-    tags: ['Node.js', 'Figma'],
-    href: '#',
+    title: 'WaveWise',
+    kind: 'AI-powered beach safety assistant',
+    description:
+      'Real-time, location-based beach conditions and safety info. Began as a Drexel HCI course assignment and grew into a fully coded prototype.',
+    tags: ['JavaScript', 'Leaflet.js', 'OpenAI API'],
   },
 ]
 
@@ -71,9 +68,10 @@ export default function Projects() {
                 project screenshot
               </div>
             )}
-            <h3 className="mb-2 text-xl font-semibold text-driftwood-900">
+            <h3 className="text-xl font-semibold text-driftwood-900">
               {project.title}
             </h3>
+            <p className="mb-2 text-sm text-sea-700">{project.kind}</p>
             <p className="mb-4 text-sm leading-[1.6] text-driftwood-600">
               {project.description}
             </p>
@@ -88,13 +86,17 @@ export default function Projects() {
                   </li>
                 ))}
               </ul>
-              <a
-                href={project.href}
-                className="shrink-0 text-sm font-medium"
-                aria-label={`${project.title} live site`}
-              >
-                Live ↗
-              </a>
+              {project.href && (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 text-sm font-medium"
+                  aria-label={`${project.title} live site`}
+                >
+                  Live ↗
+                </a>
+              )}
             </div>
           </li>
         ))}
