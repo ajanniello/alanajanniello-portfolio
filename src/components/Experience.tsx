@@ -1,3 +1,7 @@
+'use client'
+
+import Reveal, { useReveal } from './Reveal'
+
 // Oldest first; the timeline reads left to right.
 const experience = [
   {
@@ -29,6 +33,35 @@ const experience = [
   },
 ]
 
+function ExperienceItem({
+  job,
+  delay,
+}: {
+  job: (typeof experience)[number]
+  delay: number
+}) {
+  const [ref, style, revealClassName] = useReveal(delay)
+
+  return (
+    <li ref={ref} style={style} className={`relative lg:pt-9 ${revealClassName}`}>
+      <span
+        aria-hidden="true"
+        className="absolute top-1 -left-[39px] size-3 rounded-full bg-sea-700 shadow-[0_0_0_6px_var(--sand-50)] lg:-top-[7px] lg:left-0"
+      />
+      <p className="mb-2.5 font-mono text-[13px] text-driftwood-500">
+        {job.period}
+      </p>
+      <h3 className="text-[19px] leading-snug font-semibold text-driftwood-900">
+        {job.role}
+      </h3>
+      <p className="mt-1 mb-3 text-sm text-sea-700">{job.company}</p>
+      <p className="text-sm leading-[1.6] text-driftwood-600">
+        {job.description}
+      </p>
+    </li>
+  )
+}
+
 export default function Experience() {
   return (
     <section
@@ -36,29 +69,16 @@ export default function Experience() {
       className="bg-sand-50 px-6 pt-6 pb-20 md:px-24 md:pb-[120px]"
     >
       <div className="mx-auto max-w-[1088px]">
-        <p className="eyebrow mb-4 text-sea-700">Background</p>
-        <h2 className="mb-12 text-[34px] leading-[1.1] font-bold tracking-[-0.03em] text-driftwood-900 md:mb-16 md:text-[44px]">
-          Experience
-        </h2>
+        <Reveal>
+          <p className="eyebrow mb-4 text-sea-700">Background</p>
+          <h2 className="mb-12 text-[34px] leading-[1.1] font-bold tracking-[-0.03em] text-driftwood-900 md:mb-16 md:text-[44px]">
+            Experience
+          </h2>
+        </Reveal>
         {/* Timeline: a left rail below lg, a horizontal line across the top from lg up. */}
         <ol className="grid gap-10 border-l-2 border-sea-300 pl-8 lg:grid-cols-4 lg:border-t-2 lg:border-l-0 lg:pl-0">
-          {experience.map((job) => (
-            <li key={job.period} className="relative lg:pt-9">
-              <span
-                aria-hidden="true"
-                className="absolute top-1 -left-[39px] size-3 rounded-full bg-sea-700 shadow-[0_0_0_6px_var(--sand-50)] lg:-top-[7px] lg:left-0"
-              />
-              <p className="mb-2.5 font-mono text-[13px] text-driftwood-500">
-                {job.period}
-              </p>
-              <h3 className="text-[19px] leading-snug font-semibold text-driftwood-900">
-                {job.role}
-              </h3>
-              <p className="mt-1 mb-3 text-sm text-sea-700">{job.company}</p>
-              <p className="text-sm leading-[1.6] text-driftwood-600">
-                {job.description}
-              </p>
-            </li>
+          {experience.map((job, i) => (
+            <ExperienceItem key={job.period} job={job} delay={i * 100} />
           ))}
         </ol>
       </div>

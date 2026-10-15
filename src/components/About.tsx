@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Reveal from './Reveal'
 import alanaPhoto from '../../public/alana.jpg'
 import catsPhoto from '../../public/cats.jpeg'
 import dogPhoto from '../../public/dog.jpeg'
@@ -51,7 +52,7 @@ export default function About() {
       className="bg-sand-100 px-6 py-20 md:px-24 md:py-[120px]"
     >
       <div className="mx-auto grid max-w-[1088px] items-center gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-[72px]">
-        <div>
+        <Reveal>
           <p className="eyebrow mb-5 text-sea-700">About</p>
           <h2 className="mb-7 text-[34px] leading-[1.1] font-bold tracking-[-0.03em] text-driftwood-900 md:text-[44px]">
             Engineer by training. Designer by curiosity.
@@ -86,10 +87,13 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         {/* Collage: the two small photos are "cut out" over the portrait by a sand-100 border. */}
-        <div className="relative mx-auto h-[440px] w-full max-w-[480px] md:h-[520px] lg:max-w-none">
+        <Reveal
+          delay={150}
+          className="relative mx-auto h-[440px] w-full max-w-[480px] md:h-[520px] lg:max-w-none"
+        >
           <div className="absolute top-0 right-0 h-[340px] w-[86%] overflow-hidden rounded-2xl md:h-[400px]">
             <Image
               src={alanaPhoto}
@@ -117,7 +121,7 @@ export default function About() {
               className="object-cover"
             />
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

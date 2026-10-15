@@ -207,4 +207,9 @@
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
+
+  @keyframes sun-glint {
+  0%, 100% { opacity: .15; transform: translateX(0) scaleX(.6); }
+  50% { opacity: .9; transform: translateX(6px) scaleX(1); }
+}
 }

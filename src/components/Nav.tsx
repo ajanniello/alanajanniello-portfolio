@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { RESUME_PDF } from './resume'
 
 const links = [
   { label: 'About', href: '#about' },
@@ -74,6 +75,16 @@ export default function Nav() {
                 </a>
               </li>
             ))}
+            {/* Hidden on small phones where five links don't fit; Contact has the same download. */}
+            <li className="hidden sm:block">
+              <a
+                href={RESUME_PDF}
+                download
+                className="text-sea-900 hover:text-driftwood-900"
+              >
+                Resume ↓
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

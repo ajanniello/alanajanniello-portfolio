@@ -1,4 +1,7 @@
+'use client'
+
 import { type StaticImageData } from 'next/image'
+import Reveal, { useReveal } from './Reveal'
 import ProjectCarousel from './ProjectCarousel'
 import accessiscanShot from '../../public/accessiscan.png'
 import wavewiseShot1 from '../../public/wavewise1.png'
@@ -38,10 +41,63 @@ const projects: Project[] = [
 const card =
   'flex-[0_0_85vw] snap-start rounded-2xl border p-5 md:flex-[0_0_420px]'
 
+function ProjectCard({ project, delay }: { project: Project; delay: number }) {
+  const [ref, style, revealClassName] = useReveal(delay)
+
+  return (
+    <li
+      ref={ref}
+      style={style}
+      className={`${card} border-sand-200 bg-sand-50 transition-colors duration-150 ease-(--ease-standard) hover:border-sea-300 ${revealClassName}`}
+    >
+      {project.images ? (
+        <ProjectCarousel images={project.images} alt={project.title} />
+      ) : (
+        <div
+          aria-hidden="true"
+          className="mb-5 flex h-[236px] items-center justify-center rounded-[10px] bg-[repeating-linear-gradient(135deg,var(--sea-50)_0_10px,var(--sea-100)_10px_11px)] font-mono text-[11px] text-sea-800"
+        >
+          project screenshot
+        </div>
+      )}
+      <h3 className="text-xl font-semibold text-driftwood-900">
+        {project.title}
+      </h3>
+      <p className="mb-2 text-sm text-sea-700">{project.kind}</p>
+      <p className="mb-4 text-sm leading-[1.6] text-driftwood-600">
+        {project.description}
+      </p>
+      <div className="flex items-center justify-between gap-4">
+        <ul className="flex flex-wrap gap-1.5" aria-label="Tech">
+          {project.tags.map((tag) => (
+            <li
+              key={tag}
+              className="rounded-full border border-sand-300 px-2.5 py-[3px] text-xs text-driftwood-600"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+        {project.href && (
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 text-sm font-medium"
+            aria-label={`${project.title} live site`}
+          >
+            Live ↗
+          </a>
+        )}
+      </div>
+    </li>
+  )
+}
+
 export default function Projects() {
   return (
     <section id="work" className="bg-sand-50 pt-20 pb-16 md:pt-28 md:pb-24">
-      <div className="mx-auto mb-10 flex max-w-[1280px] items-end justify-between gap-6 px-6 md:px-24">
+      <Reveal className="mx-auto mb-10 flex max-w-[1280px] items-end justify-between gap-6 px-6 md:px-24">
         <div>
           <p className="eyebrow mb-4 text-sea-700">Work</p>
           <h2 className="text-[34px] leading-[1.1] font-bold tracking-[-0.03em] text-driftwood-900 md:text-[44px]">
@@ -51,56 +107,12 @@ export default function Projects() {
         <span className="eyebrow shrink-0 text-driftwood-500">
           Drag / scroll →
         </span>
-      </div>
+      </Reveal>
 
       {/* Horizontal strip; side padding lines the first card up with the 1088px content column. */}
       <ul className="flex snap-x snap-mandatory scroll-px-6 gap-5 overflow-x-auto px-6 pb-6 [scrollbar-width:thin] md:scroll-px-[max(96px,calc((100%-1088px)/2))] md:px-[max(96px,calc((100%-1088px)/2))]">
-        {projects.map((project) => (
-          <li
-            key={project.title}
-            className={`${card} border-sand-200 bg-sand-50 transition-colors duration-150 ease-(--ease-standard) hover:border-sea-300`}
-          >
-            {project.images ? (
-              <ProjectCarousel images={project.images} alt={project.title} />
-            ) : (
-              <div
-                aria-hidden="true"
-                className="mb-5 flex h-[236px] items-center justify-center rounded-[10px] bg-[repeating-linear-gradient(135deg,var(--sea-50)_0_10px,var(--sea-100)_10px_11px)] font-mono text-[11px] text-sea-800"
-              >
-                project screenshot
-              </div>
-            )}
-            <h3 className="text-xl font-semibold text-driftwood-900">
-              {project.title}
-            </h3>
-            <p className="mb-2 text-sm text-sea-700">{project.kind}</p>
-            <p className="mb-4 text-sm leading-[1.6] text-driftwood-600">
-              {project.description}
-            </p>
-            <div className="flex items-center justify-between gap-4">
-              <ul className="flex flex-wrap gap-1.5" aria-label="Tech">
-                {project.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rounded-full border border-sand-300 px-2.5 py-[3px] text-xs text-driftwood-600"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-              {project.href && (
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-sm font-medium"
-                  aria-label={`${project.title} live site`}
-                >
-                  Live ↗
-                </a>
-              )}
-            </div>
-          </li>
+        {projects.map((project, i) => (
+          <ProjectCard key={project.title} project={project} delay={i * 100} />
         ))}
         {projects.length < 4 && (
           <li
