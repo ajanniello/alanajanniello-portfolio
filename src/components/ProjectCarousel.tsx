@@ -26,7 +26,7 @@ export default function ProjectCarousel({
             type="button"
             aria-label="Previous screenshot"
             onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}
-            className="absolute top-1/2 left-2 flex size-7 -translate-y-1/2 items-center justify-center rounded-full bg-driftwood-900/60 text-sand-50 transition-colors duration-150 hover:bg-driftwood-900/80"
+            className="absolute z-10 top-1/2 left-2 flex size-7 -translate-y-1/2 items-center justify-center rounded-full bg-driftwood-900/60 text-sand-50 transition-colors duration-150 hover:bg-driftwood-900/80"
           >
             ‹
           </button>
@@ -34,11 +34,11 @@ export default function ProjectCarousel({
             type="button"
             aria-label="Next screenshot"
             onClick={() => setIndex((i) => (i + 1) % images.length)}
-            className="absolute top-1/2 right-2 flex size-7 -translate-y-1/2 items-center justify-center rounded-full bg-driftwood-900/60 text-sand-50 transition-colors duration-150 hover:bg-driftwood-900/80"
+            className="absolute z-10 top-1/2 right-2 flex size-7 -translate-y-1/2 items-center justify-center rounded-full bg-driftwood-900/60 text-sand-50 transition-colors duration-150 hover:bg-driftwood-900/80"
           >
             ›
           </button>
-          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+          <div className="absolute z-10 bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
             {images.map((_, i) => (
               <button
                 key={i}

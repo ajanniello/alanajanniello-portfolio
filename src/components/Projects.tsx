@@ -1,42 +1,9 @@
 'use client'
 
-import { type StaticImageData } from 'next/image'
+import Link from 'next/link'
 import Reveal, { useReveal } from './Reveal'
 import ProjectCarousel from './ProjectCarousel'
-import accessiscanShot from '../../public/accessiscan.png'
-import wavewiseShot1 from '../../public/wavewise1.png'
-import wavewiseShot2 from '../../public/wavewise2.png'
-
-type Project = {
-  title: string
-  kind: string
-  description: string
-  tags: string[]
-  // Live site; the "Live ↗" link only shows once this is set.
-  href?: string
-  // Real screenshots; falls back to the striped placeholder until one is added.
-  images?: StaticImageData[]
-}
-
-const projects: Project[] = [
-  {
-    title: 'AccessiScan',
-    kind: 'Automated accessibility auditor',
-    description:
-      'Audits any URL against WCAG 2.0/2.1 AA and returns a compliance score with categorized violations. Containerized and deployed on Render.',
-    tags: ['Next.js', 'TypeScript', 'Playwright', 'axe-core'],
-    href: 'https://accessibility-audit-tcy0.onrender.com/',
-    images: [accessiscanShot],
-  },
-  {
-    title: 'WaveWise',
-    kind: 'AI-powered beach safety assistant',
-    description:
-      'Real-time, location-based beach conditions and safety info. Began as a Drexel HCI course assignment and grew into a fully coded prototype.',
-    tags: ['JavaScript', 'Leaflet.js', 'OpenAI API'],
-    images: [wavewiseShot1, wavewiseShot2],
-  },
-]
+import { projects, type Project } from './projectData'
 
 const card =
   'flex-[0_0_85vw] snap-start rounded-2xl border p-5 md:flex-[0_0_420px]'
@@ -48,7 +15,7 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
     <li
       ref={ref}
       style={style}
-      className={`${card} border-sand-200 bg-sand-50 transition-colors duration-150 ease-(--ease-standard) hover:border-sea-300 ${revealClassName}`}
+      className={`${card} relative isolate border-sand-200 bg-sand-50 transition-colors duration-150 ease-(--ease-standard) hover:border-sea-300 ${revealClassName}`}
     >
       {project.images ? (
         <ProjectCarousel images={project.images} alt={project.title} />
@@ -61,12 +28,28 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
         </div>
       )}
       <h3 className="text-xl font-semibold text-driftwood-900">
-        {project.title}
+        {project.caseStudy ? (
+          // Stretched link: its ::after covers the card so the whole card is clickable,
+          // while the carousel buttons and Live link sit above it (z-10).
+          <Link
+            href={`/projects/${project.slug}`}
+            className="text-driftwood-900 after:absolute after:inset-0 after:rounded-2xl hover:text-driftwood-900"
+          >
+            {project.title}
+          </Link>
+        ) : (
+          project.title
+        )}
       </h3>
       <p className="mb-2 text-sm text-sea-700">{project.kind}</p>
       <p className="mb-4 text-sm leading-[1.6] text-driftwood-600">
         {project.description}
       </p>
+      {project.caseStudy && (
+        <p aria-hidden="true" className="mb-4 -mt-2 text-sm font-medium text-sea-700">
+          Read case study →
+        </p>
+      )}
       <div className="flex items-center justify-between gap-4">
         <ul className="flex flex-wrap gap-1.5" aria-label="Tech">
           {project.tags.map((tag) => (
@@ -83,7 +66,7 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
             href={project.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 text-sm font-medium"
+            className="relative z-10 shrink-0 text-sm font-medium"
             aria-label={`${project.title} live site`}
           >
             Live ↗
