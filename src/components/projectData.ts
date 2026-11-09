@@ -98,6 +98,7 @@ export const projects: Project[] = [
             'Violations are sorted into six categories you can filter by: color and contrast, images and media, keyboard access, ARIA and roles, forms and labels, and structure and headings.',
             "The 17 most common rules come with a plain-language explainer: what's wrong, who it affects, and a real-world example of what breaks.",
             'Each violation shows the HTML that failed and links to the full rule documentation. Passed checks are listed separately, so you can also see what the page gets right.',
+            'The full audit can be downloaded as a JSON file to share or keep as a record.',
           ],
         },
         {
